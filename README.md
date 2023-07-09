@@ -27,7 +27,7 @@ The ```/data``` folder contains indices of MNIST and FashionMNIST to generate su
 
 The ```/iaf``` folder contains the implementation of FedINB and FedINB with VW histograms. The code is based on the [repository](https://github.com/inouye-lab/Iterative-Alignment-Flows) for paper [Iterative Alignment Flows](https://proceedings.mlr.press/v151/zhou22b/zhou22b.pdf). Here we provide the PyTorch version (the original code is implemented based on Scikit-learn and PyTorch which does not support running on GPU.) Note that in the current implementation, we don't actually create a server and clients as we prove in the paper that FedINB is equivalent to INB. We track the communication cost by computing the number of parameters that should be transmitted.
 
-```run_translation.py``` can be used to train FedINB with RotatedMNIST and RotatedFashionMNIST. A few examples is given below.
+```run_translation.py``` can be used to train FedINB with RotatedMNIST and RotatedFashionMNIST. A few examples are given below.
 
 ## Implementation
 
