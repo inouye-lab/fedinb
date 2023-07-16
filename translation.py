@@ -28,7 +28,6 @@ def train_indaeinb(train_loader,
     fid = args.fid
     wd = args.wd
     vis = args.vis
-    wandb = args.wandb
 
     # =================================================================================== #
     #                                      Prepare data                                   #
@@ -75,7 +74,7 @@ def train_indaeinb(train_loader,
         avg_wd, wd_mat, avg_fid, fid_mat = eval_fid_wd_init(x_test,d_test,domain_list)
         print(f'Initially, the FID for digit {label} is {avg_fid}')
         print(f'Initially, the WD for digit {label} is {avg_wd}')
-        if wandb:
+        if args.wandb:
             wandb.log({"avg_fid": avg_fid})
             wandb.log({"avg_wd": avg_wd})
         tracker['wd'].append(wd_mat)
@@ -87,7 +86,7 @@ def train_indaeinb(train_loader,
         avg_wd, wd_mat, avg_fid, fid_mat = eval_fid_wd_init(x_test, d_test,domain_list,model_enc=model_enc,model_dec=model_dec)
         print(f'Initially after ae, the FID for digit {label} is {avg_fid}')
         print(f'Initially after ae, the WD for digit {label} is {avg_wd}')
-        if wandb:
+        if args.wandb:
             wandb.log({"avg_fid": avg_fid})
             wandb.log({"avg_wd": avg_wd})
         tracker['wd'].append(wd_mat)
@@ -119,7 +118,7 @@ def train_indaeinb(train_loader,
         if (i + 1) % log_interval == 0:
             print(f'iter {i + 1}')
 
-            if wandb and vis:
+            if args.wandb and vis:
                 x_vis = x_test[d_test==0]
                 d_vis = d_test[d_test==0]
                 x_vis = x_vis[:10]
@@ -145,7 +144,7 @@ def train_indaeinb(train_loader,
                                                                model_dec=model_dec,
                                                                fid=fid,
                                                                wd=wd)
-                if wandb:
+                if args.wandb:
                     wandb.log({"n_params": n_params})
                     wandb.log({"avg_fid": avg_fid})
                     wandb.log({"avg_wd": avg_wd})
@@ -227,7 +226,7 @@ def train_inb(train_loader,
         avg_wd, wd_mat, avg_fid, fid_mat = eval_fid_wd_init(x_test, d_test, domain_list)
         print(f'Initially, the FID for digit {label} is {avg_fid}')
         print(f'Initially, the WD for digit {label} is {avg_wd}')
-        if wandb:
+        if args.wandb:
             wandb.log({"avg_fid": avg_fid})
             wandb.log({"avg_wd": avg_wd})
         tracker['wd'].append(wd_mat)
@@ -262,7 +261,7 @@ def train_inb(train_loader,
             model_temp = deepcopy(model)
             _ = model_temp.end(z_train, d_train)
 
-            if wandb and vis:
+            if args.wandb and vis:
                 x_vis = x_test[d_test == 0]
                 d_vis = d_test[d_test == 0]
                 x_vis = x_vis[:10]
@@ -284,7 +283,7 @@ def train_inb(train_loader,
                                                                domain_list,
                                                                fid=fid,
                                                                wd=wd)
-                if wandb:
+                if args.wandb:
                     wandb.log({"n_params": n_params})
                     wandb.log({"avg_fid": avg_fid})
                     wandb.log({"avg_wd": avg_wd})

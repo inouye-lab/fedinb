@@ -48,8 +48,8 @@ if __name__ == "__main__":
 
     # wandb
     parser.add_argument('--no_wandb', action='store_true', default=False)
-    parser.add_argument('--project_name', type=str, default='fedinb-07052023')
-    parser.add_argument('--entity',type=str, default='zyzhou')
+    parser.add_argument('--project_name', type=str, default='your-project-name')
+    parser.add_argument('--entity',type=str, default='your-wandb-entity')
 
 
 

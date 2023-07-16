@@ -20,6 +20,7 @@ class RotationDataset(data_utils.Dataset):
         """
         :param list_train_domains: all domains we observe in the training
         :param root: data directory
+        :param dataset: use MNIST or FashionMNIST
         :param train: whether to load MNIST training data
         :param mnist_subset: 'max' - for each domain, use 60000 MNIST samples, 'med' - use 10000 MNIST samples, index from 0-9 - use 1000 MNIST samples
         :param transform: ...
@@ -69,12 +70,20 @@ class RotationDataset(data_utils.Dataset):
                 bs = 10000
                 self.mnist_subset = 'max'  # always use full set for test data as we don't have saved indices for MNIST test set
 
-            train_loader = torch.utils.data.DataLoader(datasets.MNIST(self.root,
-                                                                      train=self.train,
-                                                                      download=self.download,
-                                                                      transform=transforms.ToTensor()),
-                                                       batch_size=bs,
-                                                       shuffle=False)
+            if self.dataset == 'rmnist':
+                train_loader = torch.utils.data.DataLoader(datasets.MNIST(self.root,
+                                                                          train=self.train,
+                                                                          download=self.download,
+                                                                          transform=transforms.ToTensor()),
+                                                           batch_size=bs,
+                                                           shuffle=False)
+            elif self.dataset == 'rfmnist':
+                train_loader = torch.utils.data.DataLoader(datasets.FashionMNIST(self.root,
+                                                                          train=self.train,
+                                                                          download=self.download,
+                                                                          transform=transforms.ToTensor()),
+                                                           batch_size=bs,
+                                                           shuffle=False)
 
             for i, (x, y) in enumerate(train_loader):
                 mnist_imgs = x
@@ -175,12 +184,20 @@ class RotationDataset(data_utils.Dataset):
                 else:
                     bs = 10000
                     self.mnist_subset = 'max'  # always use full set for test data as we don't have saved indices for MNIST test set
-            train_loader = torch.utils.data.DataLoader(datasets.MNIST(self.root,
-                                                                      train=self.train,
-                                                                      download=self.download,
-                                                                      transform=transforms.ToTensor()),
-                                                       batch_size=bs,
-                                                       shuffle=False)
+            if self.dataset == 'rmnist':
+                train_loader = torch.utils.data.DataLoader(datasets.MNIST(self.root,
+                                                                          train=self.train,
+                                                                          download=self.download,
+                                                                          transform=transforms.ToTensor()),
+                                                           batch_size=bs,
+                                                           shuffle=False)
+            elif self.dataset == 'rfmnist':
+                train_loader = torch.utils.data.DataLoader(datasets.FashionMNIST(self.root,
+                                                                          train=self.train,
+                                                                          download=self.download,
+                                                                          transform=transforms.ToTensor()),
+                                                           batch_size=bs,
+                                                           shuffle=False)
 
             for i, (x, y) in enumerate(train_loader):
                 mnist_imgs = x
